@@ -4,7 +4,8 @@ class Pry
     MOTION_PICTURES = [
       'https://www.youtube.com/watch?v=nOSuObRNBUA',
       'https://www.youtube.com/watch?v=svJvT6ruolA',
-      'https://www.youtube.com/watch?v=l-L3zeCNzH8'
+      'https://www.youtube.com/watch?v=l-L3zeCNzH8',
+      'https://www.youtube.com/watch?v=QrY9eHkXTa4'
     ]
 
     command "nyan-cat", "", :requires_gem => ["nyancat"] do
