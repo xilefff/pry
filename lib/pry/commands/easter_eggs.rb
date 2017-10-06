@@ -1,14 +1,6 @@
 # coding: utf-8
 class Pry
   Pry::Commands.instance_eval do
-    MOTION_PICTURES = [
-      'https://www.youtube.com/watch?v=nOSuObRNBUA',
-      'https://www.youtube.com/watch?v=svJvT6ruolA',
-      'https://www.youtube.com/watch?v=l-L3zeCNzH8',
-      'https://www.youtube.com/watch?v=QrY9eHkXTa4',
-      'https://www.youtube.com/watch?v=VhdHwphvhxU'
-    ]
-
     command "nyan-cat", "", :requires_gem => ["nyancat"] do
       run ".nyancat"
     end
@@ -16,17 +8,6 @@ class Pry
     command(/!s\/(.*?)\/(.*?)/, "") do |source, dest|
       eval_string.gsub!(/#{source}/) { dest }
       run "show-input"
-    end
-
-    # TODO: unicode aliases, Linux/Windows support, etc.
-    command "play-motion-picture", "" do
-      if _pry_.h.windows?
-      else
-        syscall = _pry_.config.system
-        syscall.call _pry_.output, "%s %s" % [_pry_.config.media_player, MOTION_PICTURES.sample].map{|shellinput|
-          Shellwords.shellescape(shellinput)
-        }
-      end
     end
 
     command "get-naked", "" do
