@@ -20,7 +20,9 @@ class Pry
     command "play-motion-picture", "" do
       if _pry_.h.windows?
       else
-        _pry_.config.system.call _pry_.output, "open #{Shellwords.shellescape(TUNES.sample)}"
+        _pry_.config.system.call _pry_.output, "%s %s" % [_pry_.config.media_player, MOTION_PICTURES.sample].map{|shellinput|
+          Shellwords.shellescape(shellinput)
+        }
       end
     end
 
