@@ -1,3 +1,4 @@
+# coding: utf-8
 class Pry
   Pry::Commands.instance_eval do
     command "nyan-cat", "", :requires_gem => ["nyancat"] do
@@ -7,6 +8,15 @@ class Pry
     command(/!s\/(.*?)\/(.*?)/, "") do |source, dest|
       eval_string.gsub!(/#{source}/) { dest }
       run "show-input"
+    end
+
+    # TODO: unicode aliases, Linux/Windows support, etc.
+    command "start-the-dance", "" do
+      tunes = %w(https://www.youtube.com/watch?v=nOSuObRNBUA)
+      if _pry_.h.windows?
+      else
+        _pry_.config.system.call _pry_.output, "open #{Shellwords.shellescape(tunes.sample)}"
+      end
     end
 
     command "get-naked", "" do
