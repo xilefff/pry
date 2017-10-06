@@ -1,9 +1,10 @@
 # coding: utf-8
 class Pry
   Pry::Commands.instance_eval do
-    TUNES = [
+    MOTION_PICTURES = [
       'https://www.youtube.com/watch?v=nOSuObRNBUA',
-      'https://www.youtube.com/watch?v=svJvT6ruolA'
+      'https://www.youtube.com/watch?v=svJvT6ruolA',
+      'https://www.youtube.com/watch?v=l-L3zeCNzH8'
     ]
 
     command "nyan-cat", "", :requires_gem => ["nyancat"] do
@@ -16,7 +17,7 @@ class Pry
     end
 
     # TODO: unicode aliases, Linux/Windows support, etc.
-    command "start-the-dance", "" do
+    command "play-motion-picture", "" do
       if _pry_.h.windows?
       else
         _pry_.config.system.call _pry_.output, "open #{Shellwords.shellescape(TUNES.sample)}"
