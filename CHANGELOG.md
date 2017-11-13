@@ -1,3 +1,24 @@
+### 0.11.3
+
+* Fix a case of infinite recursion in `Pry::Method::WeirdMethodLocator#find_method_in_superclass`
+  that users of the [Hanami](http://hanamirb.org/) web framework experienced and reported
+  since 2015.
+
+See pull request [#1639](https://github.com/pry/pry/pull/1689).
+
+* Fix a bug where Method objects were not returned for setters inherited
+  from a default (Pry::Config::Default). Eg, this is no longer an error:
+
+      pry(main)> d = Pry::Config.from_hash({}, Pry::Config::Default.new)
+      pry(main)> d.method(:exception_whitelist=) # Error
+
+See pull request [#1688](https://github.com/pry/pry/pull/1688).
+
+* Do not capture unused Proc objects in Text helper methods `no_color` and `no_paging`,
+  for performance reasons. Improve the documentation of both methods.
+
+See pull request [#1691](https://github.com/pry/pry/pull/1691).
+
 ### 0.11.2
 
 * Fix a NoMethodError in the deprecated method stagger_output.
