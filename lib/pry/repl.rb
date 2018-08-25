@@ -195,6 +195,8 @@ class Pry
     end
 
     def input_readline(*args)
+      puts "Rails defined" if defined? Rails
+
       Pry::InputLock.for(:all).interruptible_region do
         input.readline(*args)
       end
