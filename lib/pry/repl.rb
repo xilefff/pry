@@ -180,6 +180,7 @@ class Pry
         end
 
         if readline_available?
+          puts "1?"
           set_readline_output
           input_readline(current_prompt, false) # false since we'll add it manually
         elsif coolline_available?
@@ -195,8 +196,6 @@ class Pry
     end
 
     def input_readline(*args)
-      puts "Rails defined" if defined? Rails
-
       Pry::InputLock.for(:all).interruptible_region do
         input.readline(*args)
       end
