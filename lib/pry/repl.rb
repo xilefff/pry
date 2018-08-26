@@ -95,7 +95,7 @@ class Pry
       current_prompt = pry.select_prompt
       indentation = pry.config.auto_indent ? @indent.current_prefix : ''
 
-      val = read_line("#{current_prompt}#{indentation}")
+      val = approve_input_on_production(read_line("#{current_prompt}#{indentation}"))
 
       # Return nil for EOF, :no_more_input for error, or :control_c for <Ctrl-C>
       return val unless String === val
@@ -163,6 +163,20 @@ class Pry
       end
     end
 
+    def approve_input_on_production(read_line)
+      return read_line unless defined? Rails && Rails.env == "production"
+      return read_line if read_line == "exit" || read_line == "reload!"
+      
+      puts "#{Pry::Helpers::Text.red("COMMAND")}: #{read_line} \nContinue? [y/n]"
+      confirmation = gets.chomp
+      if confirmation == "y"
+        read_line
+      else
+        output.puts ""
+        pry.reset_eval_string
+      end
+    end
+
     # Returns the next line of input to be sent to the {Pry} instance.
     # @param [String] current_prompt The prompt to use for input.
     # @return [String?] The next line of input, or `nil` on <Ctrl-D>.
@@ -180,7 +194,6 @@ class Pry
         end
 
         if readline_available?
-          puts "1?"
           set_readline_output
           input_readline(current_prompt, false) # false since we'll add it manually
         elsif coolline_available?
