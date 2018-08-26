@@ -164,7 +164,7 @@ class Pry
     end
 
     def approve_input_on_production(read_line)
-      return read_line unless defined? Rails && Rails.env == "production"
+      return read_line unless defined?(Rails) && Rails.env == "production"
       return read_line if read_line == "exit" || read_line == "reload!"
       
       puts "#{Pry::Helpers::Text.red("COMMAND")}: #{read_line} \nContinue? [y/n]"
